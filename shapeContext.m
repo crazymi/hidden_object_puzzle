@@ -22,33 +22,25 @@ end
 
 shape = zeros(K,32);
 radius = zeros(K,2);
-dist_sq = zeros(K,K);
-
-for i = 1 : K
-    for j = 1 : K
-        dist_sq(i,j) = sum((input(i,:)-input(j,:)).^2);
-    end
-end
 
 for k = 1 : K
     % find N neighbors and their position relative to k
-    [dsq,idx] = sort(dist_sq(k,:));
-    pts = zeros(N,2);
+    dist_sq = (input(:,1)-input(k,1)).^2 + (input(:,2)-input(k,2)).^2;
+    [dsq,idx] = sort(dist_sq);
+    rpts = zeros(N,2);
     for i = 1 : N
-        pts(i,1) = input(idx(i),1) - input(k,1);
-        pts(i,2) = input(idx(i),2) - input(k,2);
+        rpts(i,1) = input(idx(i),1) - input(k,1);
+        rpts(i,2) = input(idx(i),2) - input(k,2);
     end
     radius(k,1) = sqrt(dsq(N));
     radius(k,2) = sqrt(dsq(2));
     r = 0;
-    coeff = pca(pts) * sign;
+    coeff = pca(rpts) * sign;
     % change coordinate system
     % assume each column of coeff has magnitude 1
+    pts = rpts/coeff;
     for i = 1:N
-        pos = pts(i,:)/coeff;
-        pts(i,1) = pos(1);
-        pts(i,2) = pos(2);
-        tmp = sqrt(sum(pos.^2));
+        tmp = sqrt(sum(pts(i,:).^2));
         if tmp > r
             r = tmp;
         end
