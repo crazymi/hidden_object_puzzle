@@ -43,7 +43,7 @@ for k = 1 : K
         pos = pts(i,:)/coeff;
         pts(i,1) = pos(1);
         pts(i,2) = pos(2);
-        tmp = sum(pos.^2);
+        tmp = sqrt(sum(pos.^2));
         if tmp > r
             r = tmp;
         end
@@ -51,7 +51,7 @@ for k = 1 : K
     r = r / 4 + 1e-9;
     % first one is k itself, so don't count it
     for i = 2:N
-        d = sum(pts(i,:).^2);
+        d = sqrt(sum(pts(i,:).^2));
         a = 8 * int32(floor(d/r));
         x = pts(i,1);
         y = pts(i,2);
