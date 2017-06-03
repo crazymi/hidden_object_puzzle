@@ -50,6 +50,9 @@ for k = 1 : K
     for i = 2:N
         d = log(sqrt(sum(pts(i,:).^2)));
         a = 8 * int32(floor(d/r));
+        if a < 0
+            a = 0;
+        end
         x = pts(i,1);
         y = pts(i,2);
         if x>=0 && y>=0
