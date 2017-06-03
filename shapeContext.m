@@ -55,29 +55,29 @@ for k = 1 : K
         a = 8 * int32(floor(d/r));
         x = pts(i,1);
         y = pts(i,2);
-        if x>0 && y>0
+        if x>=0 && y>=0
             if x>y
                 shape(k,a+1) = shape(k,a+1) + 1;
             else
-                shape(k,a+1) = shape(k,a+2) + 1;
+                shape(k,a+2) = shape(k,a+2) + 1;
             end
-        elseif x<0 && y>0
+        elseif x<0 && y>=0
             if y>-x
-                shape(k,a+1) = shape(k,a+3) + 1;
+                shape(k,a+3) = shape(k,a+3) + 1;
             else
-                shape(k,a+1) = shape(k,a+4) + 1;
+                shape(k,a+4) = shape(k,a+4) + 1;
             end
         elseif x<0 && y<0
             if -x>-y
-                shape(k,a+1) = shape(k,a+5) + 1;
+                shape(k,a+5) = shape(k,a+5) + 1;
             else
-                shape(k,a+1) = shape(k,a+6) + 1;
+                shape(k,a+6) = shape(k,a+6) + 1;
             end
-        elseif x>0 && y<0
+        elseif x>=0 && y<0
             if -y>x
-                shape(k,a+1) = shape(k,a+7) + 1;
+                shape(k,a+7) = shape(k,a+7) + 1;
             else
-                shape(k,a+1) = shape(k,a+8) + 1;
+                shape(k,a+8) = shape(k,a+8) + 1;
             end
         end
     end
