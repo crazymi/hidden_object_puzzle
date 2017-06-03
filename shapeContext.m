@@ -40,7 +40,7 @@ for k = 1 : K
     % assume each column of coeff has magnitude 1
     pts = rpts/coeff;
     for i = 1:N
-        tmp = sqrt(sum(pts(i,:).^2));
+        tmp = log(sqrt(sum(pts(i,:).^2)));
         if tmp > r
             r = tmp;
         end
@@ -48,7 +48,7 @@ for k = 1 : K
     r = r / 4 + 1e-9;
     % first one is k itself, so don't count it
     for i = 2:N
-        d = sqrt(sum(pts(i,:).^2));
+        d = log(sqrt(sum(pts(i,:).^2)));
         a = 8 * int32(floor(d/r));
         x = pts(i,1);
         y = pts(i,2);
