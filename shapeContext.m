@@ -15,6 +15,11 @@ function [shape, radius] = shapeContext(input, N, sign)
 % radius : k x 2 : max radi, min radi for each histogram.
 
 K = size(input,1);
+
+if N > K
+    N = K;
+end
+
 shape = zeros(K,32);
 radius = zeros(K,2);
 dist_sq = zeros(K,K);
