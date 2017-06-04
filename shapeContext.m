@@ -23,35 +23,31 @@ end
 shape = zeros(K,32);
 radius = zeros(K,2);
 
+[idx,dists] = knnsearch(input,input,'K',K);
+
 for k = 1 : K
+    ld = log(dists(k,1:N));
     % find N neighbors and their position relative to k
-    dist_sq = (input(:,1)-input(k,1)).^2 + (input(:,2)-input(k,2)).^2;
-    [dsq,idx] = sort(dist_sq);
     rpts = zeros(N,2);
     for i = 1 : N
-        rpts(i,1) = input(idx(i),1) - input(k,1);
-        rpts(i,2) = input(idx(i),2) - input(k,2);
+        rpts(i,1) = input(idx(k,i),1) - input(k,1);
+        rpts(i,2) = input(idx(k,i),2) - input(k,2);
     end
-    radius(k,1) = sqrt(dsq(N));
-    radius(k,2) = sqrt(dsq(2));
-    r = 0;
+    radius(k,1) = dists(k,N);
+    radius(k,2) = dists(k,2);
     coeff = pca(rpts) * sign;
     % change coordinate system
     % assume each column of coeff has magnitude 1
     pts = rpts/coeff;
-    for i = 1:N
-        tmp = log(sqrt(sum(pts(i,:).^2)));
-        if tmp > r
-            r = tmp;
-        end
-    end
-    r = r / 4 + 1e-9;
+    r = ld(N) / 4 + 1e-9;
     % first one is k itself, so don't count it
     for i = 2:N
-        d = log(sqrt(sum(pts(i,:).^2)));
+        d = ld(i);
         a = 8 * int32(floor(d/r));
         if a < 0
             a = 0;
+        elseif a > 24
+            a = 24;
         end
         x = pts(i,1);
         y = pts(i,2);
