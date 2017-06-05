@@ -1,5 +1,5 @@
-B = imread('back2.png');
-O = imread('ob2.png');
+B = imread('test_back2.png');
+O = imread('test_object.png');
 
 fB = getFeatures(B);
 fO = getFeatures(O);

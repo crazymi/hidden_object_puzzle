@@ -21,6 +21,9 @@ M = size(featureB,1);
 
 [sim, idx] = localSim(O, B, O_180);
 
+scatter3(featureB(:,1)',featureB(:,2)' ,sim');
+
+
 % calculate simHat
 simH = zeros(M,1);
 for j = 1:M
@@ -35,8 +38,8 @@ for j = 1:M
     Ojt = O_180(neighbor_idxO,:);
     F = min(radiB(j,2),radiO_180(idx(j)-N,2))/max(radiB(j,1), radiO_180(idx(j)-N,1));
   end
-  
-  D = dot(normr(Bjt), normr(Ojt),2);
+  D = sum(min(Bjt, Ojt),2)./sum(Ojt,2);
+  %D = dot(normr(Bjt), normr(Ojt),2);
   simH(j) = sim(j)*sum(D)/T + w*F;
 end
 

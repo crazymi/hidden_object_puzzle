@@ -19,9 +19,13 @@ idx = zeros(M,1);
 
 for j = 1:M
   Bs = repmat(B(j,:),N,1);
-  D1 = dot(normr(Bs), normr(O),2);
-  D2 = dot(normr(Bs), normr(O_180),2);
-  [sim(j),idx(j)] = max([D1; D2]);
-end
+  sims1 = sum(min(Bs, O),2)./sum(O,2);
+  sims2 = sum(min(Bs, O_180),2)./sum(O_180,2);
+  [sim(j),idx(j)] = max([sims1; sims2]);
+%   Bs = repmat(B(j,:),N,1);
+%   D1 = dot(normr(Bs), normr(O),2);
+%   D2 = dot(normr(Bs), normr(O_180),2);
+%   [sim(j),idx(j)] = max([D1; D2]);
+ end
 
 end
