@@ -6,6 +6,7 @@ i = simH' > 0.9*(max(simH)-min(simH))+min(simH);
 ht = simH(i);
 bt = featureB(i,:);
 hold on
+
 scatter3(bt(:,1)',bt(:,2)' ,ht');
 st = tpaps(bt', ht', 0.5);
 

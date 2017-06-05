@@ -41,7 +41,7 @@ for k = 1 : K
     % change coordinate system
     % assume each column of coeff has magnitude 1
     pts = rpts/coeff;
-    r = ld(N) / 8 + 1e-9;
+    r = ld(N) / 4 + 1e-9;
     % first one is k itself, so don't count it
         
         % khg change
