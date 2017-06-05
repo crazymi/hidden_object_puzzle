@@ -1,4 +1,4 @@
-function [simH, idx] = simHat(featureO, featureB, T, w)
+function [simH, idx, axis] = simHat(featureO, featureB, T, w)
 % real similarity of feature point Bj and Object
 
 % in
@@ -15,9 +15,9 @@ function [simH, idx] = simHat(featureO, featureB, T, w)
 % assume N << M
 N = size(featureO,1);
 M = size(featureB,1);
-[O, radiO] = shapeContext(featureO,N,1);
-[O_180, radiO_180] = shapeContext(featureO,N,-1);
-[B, radiB] = shapeContext(featureB,2*N,1);
+[O, radiO, axisO] = shapeContext(featureO,N,1);
+[O_180, radiO_180, axiO_180] = shapeContext(featureO,N,-1);
+[B, radiB, axisB] = shapeContext(featureB,2*N,1);
 
 [sim, idx] = localSim(O, B, O_180);
 
@@ -39,5 +39,10 @@ for j = 1:M
   D = dot(normr(Bjt), normr(Ojt),2);
   simH(j) = sim(j)*sum(D)/T + w*F;
 end
+
+axis = [];
+axis.O = axisO;
+axis.O_180 = axisO_180;
+axis.B = axisB;
 
 end

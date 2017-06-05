@@ -1,6 +1,6 @@
-function [simImg, idx] = simMap(featureO,featureB,height,width)
+function [simImg, idx, axis] = simMap(featureO,featureB,height,width)
 
-[simH, idx] = simHat(featureO, featureB, 8, 0.3);
+[simH, idx, axis] = simHat(featureO, featureB, 8, 0.3);
 
 i = simH' > 0.9*(max(simH)-min(simH))+min(simH);
 ht = simH(i);
