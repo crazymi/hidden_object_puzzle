@@ -1,7 +1,7 @@
-function [from, to] = simMap(featureO,featureB,height,width)
+function [simImg, idx, axis] = simMap(featureO,featureB,height,width)
 
-[simH, idx] = simHat(featureO, featureB, 8, 0.3);
-
+[simH, idx, axis] = simHat(featureO, featureB, 8, 0.3);
+simImg = 0;
 [dummy, from] = max(simH);
 to = idx(from);
 

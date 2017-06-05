@@ -1,4 +1,4 @@
-function [shape, radius] = shapeContext(input, N, sign)
+function [shape, radius, axis] = shapeContext(input, N, sign)
 % get feature list, grouping N neighbor,
 % return shape context histogram for each group.
 % maybe use PCA
@@ -13,6 +13,7 @@ function [shape, radius] = shapeContext(input, N, sign)
 % ret
 % shape : k x 32 shape context histogram. 
 % radius : k x 2 : max radi, min radi for each histogram.
+% axis : k x 4 2-by-2 matrix holding axis information
 
 K = size(input,1);
 
@@ -24,7 +25,7 @@ shape = zeros(K,32);
 radius = zeros(K,2);
 
 [idx,dists] = knnsearch(input,input,'K',K);
-
+axis = zeros(K,4);
 for k = 1 : K
     ld = log(dists(k,1:N));
     % find N neighbors and their position relative to k
@@ -36,6 +37,7 @@ for k = 1 : K
     radius(k,1) = dists(k,N);
     radius(k,2) = dists(k,2);
     coeff = pca(rpts) * sign;
+    axis(k,:) = coeff(:)';
     % change coordinate system
     % assume each column of coeff has magnitude 1
     pts = rpts/coeff;
