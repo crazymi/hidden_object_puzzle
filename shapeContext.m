@@ -39,11 +39,27 @@ for k = 1 : K
     % change coordinate system
     % assume each column of coeff has magnitude 1
     pts = rpts/coeff;
-    r = ld(N) / 4 + 1e-9;
+    r = ld(N) / 8 + 1e-9;
     % first one is k itself, so don't count it
+        
+        % khg change
+    %    a = 0;
+    %    s = d/r;
+    %    for p = 1:4
+    %      if s >= 1
+    %        a = a + 1;
+    %        s = s/2;
+%           else
+%             break;
+%           end
+%         end
+%        a = a * 8;
+        %%% end
+    
     for i = 2:N
         d = ld(i);
         a = 8 * int32(floor(d/r));
+                
         if a < 0
             a = 0;
         elseif a > 24
