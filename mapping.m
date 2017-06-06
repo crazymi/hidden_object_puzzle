@@ -1,4 +1,5 @@
 function [ index, cost ] = mapping( fO, fB )
+
 % input arguments
 % fO: Nx2 matrix of x,y coordinate of features in Object
 % fB: Mx2 matrix of x,y coordinate of features in Background
@@ -17,7 +18,6 @@ for i = 1:M
         mat(i,j) = sum((fO(j,:)-fB(i,:)).^2);
     end
 end
-
 [index, cost] = hungarian(mat);
 
 end
