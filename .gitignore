@@ -5,3 +5,4 @@
 *.docs
 *.mat
 .DS_Store
+*~
