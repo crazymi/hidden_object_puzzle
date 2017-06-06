@@ -17,12 +17,11 @@ N = size(featureO,1);
 M = size(featureB,1);
 [O, radiO, axisO] = shapeContext(featureO,N,1);
 [O_180, radiO_180, axisO_180] = shapeContext(featureO,N,-1);
-[B, radiB, axisB] = shapeContext(featureB,2*N,1);
+[B, radiB, axisB] = shapeContext(featureB,N,1);
 
 [sim, idx] = localSim(O, B, O_180);
 
-scatter3(featureB(:,1)',featureB(:,2)' ,sim');
-
+% scatter3(featureB(:,1)',featureB(:,2)' ,sim');
 
 % calculate simHat
 simH = zeros(M,1);

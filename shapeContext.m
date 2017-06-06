@@ -24,7 +24,7 @@ end
 shape = zeros(K,32);
 radius = zeros(K,2);
 
-[idx,dists] = knnsearch(input,input,'K',K);
+[idx,dists] = knnsearch(input,input,'K',N);
 axis = zeros(K,4);
 for k = 1 : K
     ld = log(dists(k,1:N));
@@ -37,10 +37,13 @@ for k = 1 : K
     radius(k,1) = dists(k,N);
     radius(k,2) = dists(k,2);
     coeff = pca(rpts) * sign;
+    coeff(1,2) = -coeff(2,1);
+    coeff(2,2) = coeff(1,1);
     axis(k,:) = coeff(:)';
     % change coordinate system
     % assume each column of coeff has magnitude 1
     pts = rpts/coeff;
+    %r = ld(N) / 4 + 1e-9;
     r = ld(N) / 4 + 1e-9;
     % first one is k itself, so don't count it
         

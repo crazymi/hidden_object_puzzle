@@ -1,4 +1,4 @@
-input_img = 'e4.png';
+input_img = '../back.jpg';
 l = size(input_img,2);
 output_img = sprintf('%s_out.png', input_img(1:l-4));
 
