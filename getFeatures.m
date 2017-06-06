@@ -8,7 +8,7 @@ function [ list ] = getFeatures( img, count )
 % each row represent x, y coordinate of feature
 
 threshold = 0.1;
-suppress = 50;
+suppress = 0;
 
 if size(img,3) == 3
     img = rgb2gray(img);
@@ -19,18 +19,13 @@ n = length(pts);
 m = n;
 lst = pts.selectStrongest(n).Location;
 
-for i = 1:n
-    if lst(i,1) < 0
-        continue;
-    end
-    for j = i+1:n
-        if lst(j,1) < 0
-            continue;
-        end
+for i = n:-1:1
+    for j = i-1:-1:1
         d = sum((lst(i,:)-lst(j,:)).^2);
         if d < suppress
-            lst(j,1) = -1;
+            lst(i,1) = -1;
             m = m - 1;
+            break;
         end
     end
 end
