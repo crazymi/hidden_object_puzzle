@@ -7,7 +7,7 @@ function [ list ] = getFeatures( img, count )
 % list : kx2 list of features.
 % each row represent x, y coordinate of feature
 
-threshold = 0.01;
+threshold = 0.1;
 suppress = 50;
 
 if size(img,3) == 3
